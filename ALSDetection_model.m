@@ -1,13 +1,13 @@
-%% Section 1 — Set working directory within submission folder
+% Section 1 — Set working directory within submission folder
 cd("data/")
 
-%% Section 2 — Define file lists
+% Section 2 — Define file lists
 als_files = {'A01.csv','A02.csv','A03.csv','A04.csv','A05.csv', ...
              'A06.csv','A07.csv','A08.csv','A09.csv','A10.csv','A11.csv'};
 healthy_files = {'N01.csv','N02.csv','N03.csv','N04.csv','N05.csv', ...
                  'N06.csv','N07.csv','N08.csv','N09.csv','N10.csv','N11.csv'};
 
-%% Section 3 — Load CSVs and add labels
+% Section 3 — Load CSVs and add labels
 all_data = table();  % empty table
 
 % ALS data
@@ -27,7 +27,7 @@ end
 % Convert Label to categorical
 all_data.Label = categorical(all_data.Label);  % '0' = Healthy, '1' = ALS
 
-%% Section 4 — Half-Half Cross-Validation Setup
+% Section 4 — Half-Half Cross-Validation Setup
 rng(2025);  % reproducibility
 
 als_index = find(all_data.Label == categorical(1));
@@ -46,7 +46,7 @@ als_half2 = als_index(half_als+1:end);
 healthy_half1 = healthy_index(1:half_healthy);
 healthy_half2 = healthy_index(half_healthy+1:end);
 
-%% Section 5 — Half-half SVM Cross-Validation
+% Section 5 — Half-half SVM Cross-Validation
 BoxC = 80;  % SVM cost parameter
 metrics = zeros(2,3);  % [accuracy, sensitivity, specificity]
 
@@ -105,7 +105,7 @@ for iter = 1:2
     
     metrics(iter,:) = [accuracy, sensitivity, specificity];
 end
-%% Section 6 — Summed Confusion Matrix
+% Section 6 — Summed Confusion Matrix
 predicted_labels = {'Pred_Healthy','Pred_ALS'};   % columns = predicted
 actual_labels    = {'Actual_Healthy','Actual_ALS'}; % rows = actual
 total_cm_table = array2table(total_cm, 'VariableNames', predicted_labels, 'RowNames', actual_labels);
@@ -113,11 +113,12 @@ total_cm_table = array2table(total_cm, 'VariableNames', predicted_labels, 'RowNa
 disp('Summed Confusion Matrix Across Both Cross-Validation Iterations:');
 disp(total_cm_table);
 
-%% Section 7 — Average metrics
+% Section 7 — Average metrics
 avg_accuracy = mean(metrics(:,1));
 avg_sensitivity = mean(metrics(:,2));
 avg_specificity = mean(metrics(:,3));
 
 fprintf('Average Accuracy: %.2f%%\n', avg_accuracy*100);
 fprintf('Average Sensitivity: %.2f%%\n', avg_sensitivity*100);
+
 fprintf('Average Specificity: %.2f%%\n', avg_specificity*100);
