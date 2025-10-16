@@ -26,8 +26,9 @@ ALSModelSubmission/
 ## Instructions to Run
 
 1.  Open **MATLAB**.
-2.  Navigate to the folder that contains `ALSDetection_model.m` and the `data/` folder.
-3.  Run the script: `ALSDetection_model`
+2.  Set working directory to the provided 'data' folder
+3.  Open `ALSDetection_model.m`
+4.  Run the script: `ALSDetection_model`
 
 ### Expected Output
 
