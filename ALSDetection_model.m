@@ -120,5 +120,5 @@ avg_specificity = mean(metrics(:,3));
 
 fprintf('Average Accuracy: %.2f%%\n', avg_accuracy*100);
 fprintf('Average Sensitivity: %.2f%%\n', avg_sensitivity*100);
-
 fprintf('Average Specificity: %.2f%%\n', avg_specificity*100);
+
